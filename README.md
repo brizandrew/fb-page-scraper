@@ -10,8 +10,9 @@ Clone the git repository from GitHub.
 $ git clone git@github.com:brizandrew/fb-page-scraper.git
 ```
 
-Install all the dependencies.
+Cd into the `fb-page-scraper` directory and install all the dependencies.
 ```bash
+$ cd fb-page-scraper
 $ npm install --production
 ```
 
