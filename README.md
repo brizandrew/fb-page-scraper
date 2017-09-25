@@ -12,7 +12,7 @@ $ git clone git@github.com:brizandrew/fb-page-scraper.git
 
 Install all the dependencies.
 ```bash
-$ npm install
+$ npm install --production
 ```
 
 Copy and paste the environment file and fill out the database information using a text editor.

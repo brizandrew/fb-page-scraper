@@ -1,8 +1,9 @@
 {
-  "name": "",
+  "name": "fb-page-scraper",
   "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "description": "A scraper to collect the data and metadata of the posts of public Facebook pages.",
+  "repository":"https://github.com/brizandrew/fb-page-scraper",
+  "main": "dist/scrape.js",
   "scripts": {
     "clean": "rm -r dist/*",
     "test": "echo test",
