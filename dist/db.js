@@ -61,7 +61,7 @@ function endConnection() {
 
 function deletePages() {
     return new Promise(function (resolve, reject) {
-        var query = '\n            DELETE FROM `' + pagesTable + ';';
+        var query = '\n            DELETE FROM `' + pagesTable + '`;';
 
         conn.query(query, function (error, results) {
             if (error) reject(error);else resolve(results);
