@@ -1,0 +1,19 @@
+# Mac file types to be ignored
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Node Stuff
+node_modules
+initWatch.sh
+dist/*
+.env
+
+# Custom Stuff
+log.txt
+output.csv
+pages.json
