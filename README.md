@@ -21,9 +21,9 @@ $ cp .template.env .env
 $ nano .env
 ```
 
-Run the setup command which will build your `dist` directory and create your database tables.
+Create your database tables using the `createTables` command.
 ```bash
-$ npm run setup
+$ npm run createTables
 ```
 
 Add pages to your `pages.json` file by running the `addPage` command, and following the prompts. You'll need the page's Facebook Id which you can find using [this](https://findmyfbid.com/).
