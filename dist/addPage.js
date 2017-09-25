@@ -57,7 +57,7 @@ console.log('Adding a new page to your pages.json file...');
         inputs = _ref4[2];
 
     var jsonString = JSON.stringify(pages, null, '\t');
-    var jsonBuffer = Buffer.from(jsonString, 'utf8');
+    var jsonBuffer = Buffer.from(jsonString);
 
     return new Promise(function (resolve, reject) {
         _fs2.default.write(file, jsonBuffer, 0, jsonBuffer.length, null, function (err) {
