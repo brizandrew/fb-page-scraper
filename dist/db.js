@@ -283,7 +283,7 @@ function getAllData() {
 
 function deletePosts() {
     return new Promise(function (resolve, reject) {
-        var query = '\n            DELETE FROM `' + postsTable + ';';
+        var query = '\n            DELETE FROM `' + postsTable + '`;';
 
         conn.query(query, function (error, results) {
             if (error) reject(error);else resolve(results);
