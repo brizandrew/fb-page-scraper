@@ -99,7 +99,7 @@ function updatePages(pages) {
 
 function getPages() {
     return new Promise(function (resolve, reject) {
-        var query = '\n            SELECT `' + pagesTable + '`.fb_id, name, ideology, last_post\n            FROM `' + pagesTable + '`\n            LEFT JOIN (\n                SELECT *\n                FROM (\n                    SELECT `' + pagesTable + '`.fb_id, created_time\n                    AS "last_post" FROM `' + pagesTable + '`\n                    INNER JOIN `' + postsTable + '`\n                    ON `' + pagesTable + '`.fb_id = `' + postsTable + '`.page_id\n                    ORDER BY created_time\n                    DESC\n                )\n                AS sub\n                GROUP BY fb_id\n            )\n            AS subtwo\n            ON `' + pagesTable + '`.fb_id = subtwo.fb_id;';
+        var query = '\n            SELECT `' + pagesTable + '`.fb_id, name, ideology, last_post\n            FROM `' + pagesTable + '`\n            LEFT JOIN (\n                SELECT page_id, max(created_time) AS "last_post"\n                FROM `' + postsTable + '`\n                GROUP BY page_id\n            )\n            AS sub\n            ON `' + pagesTable + '`.fb_id = sub.page_id;';
 
         conn.query(query, function (error, results) {
             if (error) reject(error);else resolve(results);
