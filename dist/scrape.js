@@ -135,12 +135,10 @@ function scrapeAllPages() {
                 });
 
                 // filter out old posts
+                // if this is the first post, filter posts that are older than the threshold + 1hr
+                // if this isn't the first post, filter posts that are older than the last post
                 var filterDate = void 0;
-                if (pageInfo.last_post === null) {
-                    filterDate = (0, _moment2.default)().subtract(2, 'hours').format('X');
-                } else {
-                    filterDate = pageInfo.last_post;
-                }
+                if (pageInfo.last_post === null) filterDate = (0, _moment2.default)().subtract(SCRAPE_THRESHOLD + 3600, 'seconds').format('X');else filterDate = pageInfo.last_post;
                 var newPosts = posts.filter(function (post) {
                     return post.created_time > filterDate;
                 });
@@ -195,7 +193,7 @@ function scrapeNewLinks() {
 }
 
 /* Run Script */
-var SCRAPE_THRESHOLD = 3600; // 3600 seconds = 1 hour
+var SCRAPE_THRESHOLD = 86400; // 3600 seconds = 1 hour
 (0, _log2.default)('Starting scrape...');
 (0, _log2.default)('Scraping pages...');
 scrapeAllPages().then(function () {
