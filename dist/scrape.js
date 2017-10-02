@@ -63,24 +63,25 @@ function scrapePost(postId) {
     return _fb2.default.api('', 'post', {
         batch: [{ method: 'get', relative_url: '/' + postId + '?fields=shares,link,permalink_url,type' }, { method: 'get', relative_url: '/' + postId + '/comments?summary=total_count' }, { method: 'get', relative_url: '/' + postId + '/reactions?type=LIKE&summary=total_count' }, { method: 'get', relative_url: '/' + postId + '/reactions?type=LOVE&summary=total_count' }, { method: 'get', relative_url: '/' + postId + '/reactions?type=WOW&summary=total_count' }, { method: 'get', relative_url: '/' + postId + '/reactions?type=HAHA&summary=total_count' }, { method: 'get', relative_url: '/' + postId + '/reactions?type=SAD&summary=total_count' }, { method: 'get', relative_url: '/' + postId + '/reactions?type=ANGRY&summary=total_count' }, { method: 'get', relative_url: '/' + postId + '/reactions?type=THANKFUL&summary=total_count' }]
     }).then(function (res) {
+        // getting post metadata
         var metadata = JSON.parse(res[0].body);
-
         var data = {
             id: metadata.id,
             shares: 'shares' in metadata ? metadata.shares.count : 0,
             link: 'link' in metadata ? '' + metadata.link : '',
             permalink_url: 'permalink_url' in metadata ? '' + metadata.permalink_url : '',
             type: 'type' in metadata ? '' + metadata.type : '',
-            comments: JSON.parse(res[1].body).summary.total_count,
-            likes: JSON.parse(res[2].body).summary.total_count,
-            love: JSON.parse(res[3].body).summary.total_count,
-            wow: JSON.parse(res[4].body).summary.total_count,
-            haha: JSON.parse(res[5].body).summary.total_count,
-            sad: JSON.parse(res[6].body).summary.total_count,
-            angry: JSON.parse(res[7].body).summary.total_count,
-            thankful: JSON.parse(res[8].body).summary.total_count,
             scraped_time: (0, _moment2.default)().format('X')
         };
+
+        // getting post reactions and shares
+        var categories = ['comments', 'likes', 'love', 'wow', 'haha', 'sad', 'angry', 'thankful'];
+        for (var i = 0; i < categories.length; i++) {
+            var respObj = JSON.parse(res[i + 1].body).summary;
+            var catCount = respObj !== undefined ? respObj.total_count : null;
+            data[categories[i]] = catCount;
+        }
+
         return new Promise(function (resolve) {
             resolve(data);
         });
