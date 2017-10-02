@@ -177,8 +177,8 @@ function scrapeLink(data, index) {
 
         var $ = _cheerio2.default.load(response.body);
 
-        linkData.headline = $('meta[property="og:title"]').attr('content');
-        linkData.description = $('meta[property="og:description"]').attr('content');
+        linkData.headline = escape($('meta[property="og:title"]').attr('content'));
+        linkData.description = escape($('meta[property="og:description"]').attr('content'));
 
         return _db2.default.updatePostData(linkData);
     }).catch(function (err) {
