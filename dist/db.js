@@ -12,6 +12,10 @@ var _mysql = require('mysql');
 
 var _mysql2 = _interopRequireDefault(_mysql);
 
+var _log = require('./log.js');
+
+var _log2 = _interopRequireDefault(_log);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /* Env Setup */
@@ -80,9 +84,11 @@ function addPage(pageData) {
     }
 
     // run the query
-    return new Promise(function (resolve, reject) {
+    return new Promise(function (resolve) {
         conn.query(query, [values], function (error) {
-            if (error) reject(error);else resolve();
+            if (error) (0, _log2.default)(error);
+
+            resolve();
         });
     });
 }
@@ -113,9 +119,11 @@ function addPost(values) {
     var query = INSERT('posts', columns);
 
     // run the query
-    return new Promise(function (resolve, reject) {
+    return new Promise(function (resolve) {
         conn.query(query, [values], function (error) {
-            if (error) reject(error);else resolve();
+            if (error) (0, _log2.default)(error);
+
+            resolve();
         });
     });
 }
@@ -222,11 +230,11 @@ function updatePostData(data) {
         values.push(data[value]);
     }
 
-    return new Promise(function (resolve, reject) {
+    return new Promise(function (resolve) {
         conn.query(query, values, function (error) {
-            if (error) {
-                reject(error);
-            } else resolve();
+            if (error) (0, _log2.default)(error);
+
+            resolve();
         });
     });
 }
