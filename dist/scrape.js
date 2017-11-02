@@ -1,5 +1,7 @@
 'use strict';
 
+require('babel-polyfill');
+
 var _nodeEnvFile = require('node-env-file');
 
 var _nodeEnvFile2 = _interopRequireDefault(_nodeEnvFile);
@@ -12,17 +14,9 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _request = require('request');
-
-var _request2 = _interopRequireDefault(_request);
-
 var _events = require('events');
 
 var _events2 = _interopRequireDefault(_events);
-
-var _cheerio = require('cheerio');
-
-var _cheerio2 = _interopRequireDefault(_cheerio);
 
 var _db = require('./db.js');
 
@@ -31,6 +25,10 @@ var _db2 = _interopRequireDefault(_db);
 var _log = require('./log.js');
 
 var _log2 = _interopRequireDefault(_log);
+
+var _scrapeLinks = require('./scrapeLinks.js');
+
+var _scrapeLinks2 = _interopRequireDefault(_scrapeLinks);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -42,20 +40,6 @@ _events2.default.EventEmitter.prototype._maxListeners = 100;
 /* Utility Functions */
 function gmtToUnix(gmt) {
     return (0, _moment2.default)(gmt, 'YYYY-MM-DD[T]kk:mm:ssZZZZZ').format('X');
-}
-
-function delay(ms) {
-    return new Promise(function (resolve) {
-        return setTimeout(resolve, ms);
-    });
-}
-
-function requestPromise(url) {
-    return new Promise(function (resolve, reject) {
-        (0, _request2.default)(url, function (error, response) {
-            if (!error) resolve(response);else reject(error);
-        });
-    });
 }
 
 /* Scraping */
@@ -168,28 +152,9 @@ function scrapeAllPosts() {
     });
 }
 
-function scrapeLink(data, index) {
-    return delay(index * 3000).then(function () {
-        (0, _log2.default)('Making request...');
-        return requestPromise(data.link);
-    }).then(function (response) {
-        var linkData = { id: data.fb_id };
-
-        var $ = _cheerio2.default.load(response.body);
-
-        linkData.headline = escape($('meta[property="og:title"]').attr('content'));
-        linkData.description = escape($('meta[property="og:description"]').attr('content'));
-
-        return _db2.default.updatePostData(linkData);
-    }).catch(function (err) {
-        (0, _log2.default)(err);
-    });
-}
-
 function scrapeNewLinks() {
     return _db2.default.getNewLinks().then(function (posts) {
-        var linkScrapes = posts.map(scrapeLink);
-        return Promise.all(linkScrapes);
+        return (0, _scrapeLinks2.default)(posts);
     });
 }
 

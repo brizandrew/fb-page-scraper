@@ -241,7 +241,7 @@ function updatePostData(data) {
 
 function getNewLinks() {
     return new Promise(function (resolve, reject) {
-        var query = SELECT('posts', ['fb_id', 'link'], 'WHERE type = \'link\' AND headline is NULL LIMIT 20');
+        var query = SELECT('posts', ['fb_id', 'link'], 'WHERE type = \'link\' AND headline is NULL');
         conn.query(query, function (error, results) {
             if (error) reject(error);else {
                 var data = [];
