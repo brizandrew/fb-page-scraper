@@ -31,7 +31,6 @@
     "babel-cli": "^6.26.0",
     "babel-eslint": "^7.2.3",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
-    "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "babelify": "^7.3.0",
@@ -45,6 +44,7 @@
     "uglify-js": "^2.7.3"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "cheerio": "^1.0.0-rc.2",
     "csv-parser": "^1.11.0",
     "express": "^4.15.4",
