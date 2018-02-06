@@ -311,6 +311,7 @@ exports.default = {
     endConnection: endConnection,
     updatePages: updatePages,
     getPages: getPages,
+    addPost: addPost,
     addPosts: addPosts,
     getPosts: getPosts,
     updatePostData: updatePostData,

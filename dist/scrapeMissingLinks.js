@@ -18,6 +18,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function scrapeNewLinks() {
     return _db2.default.getNewLinks().then(function (posts) {
+        console.log(posts.length);
         return (0, _scrapeLinks2.default)(posts);
     });
 }

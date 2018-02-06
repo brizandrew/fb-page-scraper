@@ -6,7 +6,7 @@
   "main": "dist/scrape.js",
   "scripts": {
     "clean": "rm -r dist/*",
-    "testScript": "node dist/test.js",
+    "testScript": "babel-node lib/test.js --presets es2015,stage-2",
     "setup": "npm run build; npm run createTables;",
     "build": "npm run clean; babel lib -d dist;",
     "scrape-dev": "babel-node lib/scrape.js --presets es2015,stage-2",
@@ -22,7 +22,9 @@
     "resetdb-dev": "babel-node lib/resetdb.js --presets es2015,stage-2",
     "resetdb": "node dist/resetdb.js",
     "scrapeMissing-dev": "babel-node lib/scrapeMissingLinks.js --presets es2015,stage-2",
-    "scrapeMissing": "node dist/scrapeMissingLinks.js"
+    "scrapeMissing": "node dist/scrapeMissingLinks.js",
+    "importData-dev": "babel-node lib/importData.js --presets es2015,stage-2",
+    "importData": "node dist/importData.js"
   },
   "author": "Andrew Briz",
   "license": "ISC",
