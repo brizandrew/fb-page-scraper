@@ -1,6 +1,6 @@
 # Facebook Page Scraper
 
-A scraper to collect the data and metadata of the posts of public Facebook pages.
+A scraper to collect the content, metadata, and analytics of the posts of public Facebook pages.
 
 ## Installation
 Make sure you have an sql database with a valid superuser.
